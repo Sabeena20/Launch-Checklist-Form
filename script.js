@@ -27,6 +27,8 @@ window.addEventListener("load", function () {
       } else {
          alert("Make sure to enter valid information for each field!")
       }
+      event.preventDefault();
+   });
       //updating the faulty items
       div.innerHTML = `
       <div id = "faultyItems">
@@ -35,7 +37,7 @@ window.addEventListener("load", function () {
      <li> Co-pilot ${copilotName.value} is ready for launch</li>
      </div>
      `;
-
+     // updating fuelstatus and cargostatus
       if (fuelLevel < 10000 || cargoMass > 10000) {
          items.style.visibility = "visible";
          fuelStatus.innerHTML = "There is no enough fuel for the journey";
@@ -46,6 +48,8 @@ window.addEventListener("load", function () {
          launchStatus.innerHTML = "The shuttle is ready for launch";
          launchStatus.style.backgroundColor = "green";
       }
+   });
+      // planetary json
       fetch("https://handlers.education.launchcode.org/static/planets.json").then(function (response) {
          response.json().then(function (json) {
             console.log(json);
@@ -64,11 +68,9 @@ window.addEventListener("load", function () {
 <img src="${json[1].image}"> 
 </div>
 `;
-
-
-         });
+ });
       });
+  
+   
 
-   });
 
-});
