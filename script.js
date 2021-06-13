@@ -8,21 +8,36 @@ window.addEventListener("load", function () {
       let copilotName = document.querySelector("input[name=copilotName]");
       let cargoMass = document.querySelector("input[name=cargoMass]");
       let fuelLevel = document.querySelector("input[name=fuelLevel]");
+      let items = document.getElementById("faultyItems");
+      let launchStatus = document.getElementById("launchStatus");
+
       //Validating all the input 
       if (pilotName.value === "" || copilotName.value === "" || cargoMass.value === "" || fuelLevel.value === "") {
-         alert("All fields are required");
+         alert("All fields are required!");
       }
       // validating the input type for cargomass and fuellevel
       if (isNaN(cargoMass.value) == true || isNaN(fuelLevel.value) == true) {
-         alert("Please enter a number");
+         alert("Make sure to enter valid information for each field!");
       }
-     // validating the text input
-     if(pilotName.value.match(letters)){
-        return true;
-     } else {
-        alert("the name should contain only alpabets")
-     }
+      // validating the text input
+      if (pilotName.value.match(letters) || copilotName.value.match(letters)) {
+         return true;
+      } else {
+         alert("Make sure to enter valid information for each field!")
+      }
+      //updating the faulty items
+      items.innerHTML = `
+     <ul>
+     <li> Pilot ${pilotName.value} is ready for launch. </li>
+     <li> Co-pilot ${copilotName.value} is ready for launch</li>
+     `;
 
+      if (fuelLevel < 10000 || cargoMass > 10000) {
+         console.log("ajsjkj");
+         items.style.visibility = "visible";
+         launchStatus.style.backgroundColor = "red";
+         launchStatus.innerHTML = "The shuttle not ready for launch";
+      }
       event.preventDefault();
    });
 });
