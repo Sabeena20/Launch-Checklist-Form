@@ -27,8 +27,7 @@ window.addEventListener("load", function () {
       } else {
          alert("Make sure to enter valid information for each field!")
       }
-      event.preventDefault();
-   });
+     
       //updating the faulty items
       div.innerHTML = `
       
@@ -48,6 +47,8 @@ window.addEventListener("load", function () {
          launchStatus.innerHTML = "The shuttle is ready for launch";
          launchStatus.style.backgroundColor = "green";
       }
+      event.preventDefault();
+   });
    });
       // planetary json
       fetch("https://handlers.education.launchcode.org/static/planets.json").then(function (response) {
