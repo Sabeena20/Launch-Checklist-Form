@@ -8,8 +8,10 @@ window.addEventListener("load", function () {
       let copilotName = document.querySelector("input[name=copilotName]");
       let cargoMass = document.querySelector("input[name=cargoMass]");
       let fuelLevel = document.querySelector("input[name=fuelLevel]");
-      let items = document.getElementById("faultyItems");
+      let div = document.getElementById("launchStatusCheck");
       let launchStatus = document.getElementById("launchStatus");
+      let items = document.getElementById("faultyItems");
+
 
       //Validating all the input 
       if (pilotName.value === "" || copilotName.value === "" || cargoMass.value === "" || fuelLevel.value === "") {
@@ -26,17 +28,21 @@ window.addEventListener("load", function () {
          alert("Make sure to enter valid information for each field!")
       }
       //updating the faulty items
-      items.innerHTML = `
+      div.innerHTML = `
+      <div id = "faultyItems">
      <ul>
      <li> Pilot ${pilotName.value} is ready for launch. </li>
      <li> Co-pilot ${copilotName.value} is ready for launch</li>
+     </div>
      `;
 
       if (fuelLevel < 10000 || cargoMass > 10000) {
-         console.log("ajsjkj");
          items.style.visibility = "visible";
          launchStatus.style.backgroundColor = "red";
          launchStatus.innerHTML = "The shuttle not ready for launch";
+      } else {
+         launchStatus.innerHTML  = "The shuttle is ready for launch";
+         launchStatus.style.backgroundColor = "green";
       }
       event.preventDefault();
    });
