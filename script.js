@@ -3,16 +3,16 @@ window.addEventListener("load", function () {
    console.log("window loaded");
    let form = this.document.querySelector("form");
    let letters = /^[A-Za-z]+$/;
+   const pilotName = document.querySelector("input[name=pilotName]");
+      const copilotName = document.querySelector("input[name=copilotName]");
+      const cargoMass = document.querySelector("input[name=cargoMass]");
+      const fuelLevel = document.querySelector("input[name=fuelLevel]");
+      const div = document.getElementById("launchStatusCheck");
+      const launchStatus = document.getElementById("launchStatus");
+      const items = document.getElementById("faultyItems");
+      const fuelStatus = document.getElementById("fuelStatus");
+      const cargoStatus = document.getElementById("cargoStatus");
    form.addEventListener("submit", function (event) {
-      let pilotName = document.querySelector("input[name=pilotName]");
-      let copilotName = document.querySelector("input[name=copilotName]");
-      let cargoMass = document.querySelector("input[name=cargoMass]");
-      let fuelLevel = document.querySelector("input[name=fuelLevel]");
-      let div = document.getElementById("launchStatusCheck");
-      let launchStatus = document.getElementById("launchStatus");
-      let items = document.getElementById("faultyItems");
-
-
       //Validating all the input 
       if (pilotName.value === "" || copilotName.value === "" || cargoMass.value === "" || fuelLevel.value === "") {
          alert("All fields are required!");
@@ -38,23 +38,37 @@ window.addEventListener("load", function () {
 
       if (fuelLevel < 10000 || cargoMass > 10000) {
          items.style.visibility = "visible";
-         launchStatus.style.backgroundColor = "red";
+         fuelStatus.innerHTML = "There is no enough fuel for the journey";
+         cargoStatus.innerHTML = "There is too much mass for the shuttle to take-off";
          launchStatus.innerHTML = "The shuttle not ready for launch";
+         launchStatus.style.backgroundColor = "red";
       } else {
-         launchStatus.innerHTML  = "The shuttle is ready for launch";
+         launchStatus.innerHTML = "The shuttle is ready for launch";
          launchStatus.style.backgroundColor = "green";
       }
-      event.preventDefault();
-   });
-});
-/* This block of code shows how to format the HTML once you fetch some planetary JSON!
-<h2>Mission Destination</h2>
-<ol>
-   <li>Name: ${}</li>
-   <li>Diameter: ${}</li>
-   <li>Star: ${}</li>
-   <li>Distance from Earth: ${}</li>
-   <li>Number of Moons: ${}</li>
+      fetch("https://handlers.education.launchcode.org/static/planets.json").then(function (response) {
+         response.json().then(function (json) {
+            console.log(json);
+            let mission = document.getElementById("missionTarget");
+            mission.innerHTML = `
+            
+  <h2>Mission Destination</h2>
+  <div>
+  <ol>
+   <li>Name: ${json[1].name}</li>
+   <li>Diameter: ${json[1].diameter}</li>
+   <li>Star: ${json[1].star}</li>
+   <li>Distance from Earth: ${json[1].distance}</li>
+   <li>Number of Moons: ${json[1].moons}</li>
 </ol>
-<img src="${}">
-*/
+<img src="${json[1].image}"> 
+</div>
+`;
+
+
+         });
+      });
+
+   });
+
+});
