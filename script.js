@@ -31,11 +31,11 @@ window.addEventListener("load", function () {
    });
       //updating the faulty items
       div.innerHTML = `
-      <div id = "faultyItems">
+      
      <ul>
      <li> Pilot ${pilotName.value} is ready for launch. </li>
      <li> Co-pilot ${copilotName.value} is ready for launch</li>
-     </div>
+     
      `;
      // updating fuelstatus and cargostatus
       if (fuelLevel < 10000 || cargoMass > 10000) {
@@ -57,16 +57,16 @@ window.addEventListener("load", function () {
             mission.innerHTML = `
             
   <h2>Mission Destination</h2>
-  <div>
+  
   <ol>
-   <li>Name: ${json[1].name}</li>
-   <li>Diameter: ${json[1].diameter}</li>
-   <li>Star: ${json[1].star}</li>
-   <li>Distance from Earth: ${json[1].distance}</li>
-   <li>Number of Moons: ${json[1].moons}</li>
+   <li>Name: ${json[3].name}</li>
+   <li>Diameter: ${json[3].diameter}</li>
+   <li>Star: ${json[3].star}</li>
+   <li>Distance from Earth: ${json[3].distance}</li>
+   <li>Number of Moons: ${json[3].moons}</li>
 </ol>
-<img src="${json[1].image}"> 
-</div>
+<img src="${json[3].image}"> 
+
 `;
  });
       });
