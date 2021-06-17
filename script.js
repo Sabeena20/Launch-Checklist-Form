@@ -67,16 +67,16 @@ fetch("https://handlers.education.launchcode.org/static/planets.json").then(func
 
       //UPDATING THE HTML DYNAMICALLY
       mission.innerHTML = `
-            <h2>Mission Destination</h2>
-            <ol>
-   <li>Name: ${randomValue.name}</li>
-   <li>Diameter: ${randomValue.diameter}</li>
-   <li>Star: ${randomValue.star}</li>
-   <li>Distance from Earth: ${randomValue.distance}</li>
-   <li>Number of Moons: ${randomValue.moons}</li>
-</ol>
-<img src="${randomValue.image}"> 
-`;
+               <h2>Mission Destination</h2>
+               <ol>
+      <li>Name: ${randomValue.name}</li>
+      <li>Diameter: ${randomValue.diameter}</li>
+      <li>Star: ${randomValue.star}</li>
+      <li>Distance from Earth: ${randomValue.distance}</li>
+      <li>Number of Moons: ${randomValue.moons}</li>
+            </ol>
+      <img src="${randomValue.image}"> 
+   `;
    });
 });
 
