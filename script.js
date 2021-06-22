@@ -1,4 +1,3 @@
-// Write your JavaScript code here!
 window.addEventListener("load", function () {
    // console.log("window loaded");
    let form = this.document.querySelector("form");
@@ -14,47 +13,66 @@ window.addEventListener("load", function () {
    const copilotStatus = document.getElementById("copilotStatus");
    const fuelStatus = document.getElementById("fuelStatus");
    const cargoStatus = document.getElementById("cargoStatus");
+   let ready = true;
+
 
    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      items.style.visibility = "hidden";
+      ready = true;
 
       //Validating all the input 
 
       if (pilotName.value === "" || copilotName.value === "" || cargoMass.value === "" || fuelLevel.value === "") {
          alert("All fields are required!");
+         ready = false;
       }
 
       // validating the input type for cargomass,fuellevel and text input
 
       else if (isNaN(cargoMass.value) == true || isNaN(fuelLevel.value) == true) {
          alert("Make sure to enter valid information for each field!");
+         ready = false;
       }
 
       else if (!pilotName.value.match(letters) || !copilotName.value.match(letters)) {
          alert("Make sure to enter valid information for each field!");
+         ready = false;
       }
 
       //updating faultyitems,fuelstatus,cargostatus
 
-      if (fuelLevel.value < 10000) {     // UPDATING FUEL STATUS
-         items.style.visibility = "visible";
-         pilotStatus.innerHTML = `Pilot ${pilotName.value} is ready for launch.`;
-         copilotStatus.innerHTML = `Co-pilot ${copilotName.value} is ready for launch`;
-         fuelStatus.innerHTML = `There is no enough fuel for the journey`;
-         launchStatus.innerHTML = `The shuttle not ready for launch`;
-         launchStatus.style.color = "red";
-      } else if (cargoMass.value > 10000) {    // UPDATING CARGO STATUS
-         items.style.visibility = "visible";
-         pilotStatus.innerHTML = `Pilot ${pilotName.value} is ready for launch.`;
-         copilotStatus.innerHTML = `Co-pilot ${copilotName.value} is ready for launch`;
-         cargoStatus.innerHTML = `There is too much mass for the shuttle to take-off`;
-         launchStatus.innerHTML = `The shuttle not ready for launch.`;
-         launchStatus.style.color = "red";
-      } else {            // IF THE SHUTTLE IS GOOD TO GO 
-         items.style.visibility = "hidden";
-         launchStatus.innerHTML = `The shuttle is ready for launch`;
-         launchStatus.style.color = "green";
+      else {
+         if (fuelLevel.value < 10000) {     // UPDATING FUEL STATUS
+            items.style.visibility = "visible";
+            pilotStatus.innerHTML = `Pilot ${pilotName.value} is ready for launch.`;
+            copilotStatus.innerHTML = `Co-pilot ${copilotName.value} is ready for launch.`;
+            fuelStatus.innerHTML = `There is no enough fuel for the journey.`;
+            launchStatus.innerHTML = `The shuttle not ready for launch.`;
+            launchStatus.style.color = "red";
+            ready = false;
+         } 
+
+         if (cargoMass.value > 10000) {    // UPDATING CARGO STATUS
+            items.style.visibility = "visible";
+            pilotStatus.innerHTML = `Pilot ${pilotName.value} is ready for launch.`;
+            copilotStatus.innerHTML = `Co-pilot ${copilotName.value} is ready for launch.`;
+            cargoStatus.innerHTML = `There is too much mass for the shuttle to take-off.`;
+            launchStatus.innerHTML = `The shuttle not ready for launch.`;
+            launchStatus.style.color = "red";
+            ready = false;
+         } 
+
+         if (ready) {
+            // IF THE SHUTTLE IS GOOD TO GO 
+            items.style.visibility = "visible";
+            launchStatus.innerHTML = `The shuttle is ready for launch`;
+            pilotStatus.innerHTML = `Pilot ${pilotName.value} is ready for launch.`;
+            copilotStatus.innerHTML = `Co-pilot ${copilotName.value} is ready for launch.`;
+            launchStatus.style.color = "green";
+         }
       }
-      event.preventDefault();
+
    });
 });
 // FETCHING PLANETARY JSON AND BONUS MISSION
@@ -79,7 +97,3 @@ fetch("https://handlers.education.launchcode.org/static/planets.json").then(func
    `;
    });
 });
-
-
-
-
