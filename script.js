@@ -20,6 +20,10 @@ window.addEventListener("load", function () {
       event.preventDefault();
       items.style.visibility = "hidden";
       ready = true;
+      launchStatus.innerHTML = "Awaiting Information Before Launch";
+      launchStatus.style.color = "black";
+
+
 
       //Validating all the input 
 
