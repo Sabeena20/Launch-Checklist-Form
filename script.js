@@ -13,35 +13,33 @@ window.addEventListener("load", function () {
    const copilotStatus = document.getElementById("copilotStatus");
    const fuelStatus = document.getElementById("fuelStatus");
    const cargoStatus = document.getElementById("cargoStatus");
-   let ready = true;
+   let readyForLaunch = false;
 
 
    form.addEventListener("submit", function (event) {
       event.preventDefault();
       items.style.visibility = "hidden";
-      ready = true;
+      readyForLaunch = true;
       launchStatus.innerHTML = "Awaiting Information Before Launch";
       launchStatus.style.color = "black";
-
-
 
       //Validating all the input 
 
       if (pilotName.value === "" || copilotName.value === "" || cargoMass.value === "" || fuelLevel.value === "") {
          alert("All fields are required!");
-         ready = false;
+         readyForLaunch = false;
       }
 
       // validating the input type for cargomass,fuellevel and text input
 
       else if (isNaN(cargoMass.value) == true || isNaN(fuelLevel.value) == true) {
          alert("Make sure to enter valid information for each field!");
-         ready = false;
+         readyForLaunch = false;
       }
 
       else if (!pilotName.value.match(letters) || !copilotName.value.match(letters)) {
          alert("Make sure to enter valid information for each field!");
-         ready = false;
+         readyForLaunch = false;
       }
 
       //updating faultyitems,fuelstatus,cargostatus
@@ -54,7 +52,7 @@ window.addEventListener("load", function () {
             fuelStatus.innerHTML = `There is no enough fuel for the journey.`;
             launchStatus.innerHTML = `The shuttle not ready for launch.`;
             launchStatus.style.color = "red";
-            ready = false;
+            readyForLaunch = false;
          } else {
             fuelStatus.innerHTML = `Fuel level high enough for launch.`;
          }
@@ -66,12 +64,12 @@ window.addEventListener("load", function () {
             cargoStatus.innerHTML = `There is too much mass for the shuttle to take-off.`;
             launchStatus.innerHTML = `The shuttle not ready for launch.`;
             launchStatus.style.color = "red";
-            ready = false;
+            readyForLaunch = false;
          } else {
             cargoStatus.innerHTML = `Cargo mass low enough for launch.`;
          }
 
-         if (ready) {
+         if (readyForLaunch) {
             // IF THE SHUTTLE IS GOOD TO GO 
             items.style.visibility = "visible";
             launchStatus.innerHTML = `The shuttle is ready for launch`;
@@ -93,15 +91,15 @@ fetch("https://handlers.education.launchcode.org/static/planets.json").then(func
 
       //UPDATING THE HTML DYNAMICALLY
       mission.innerHTML = `
-               <h2>Mission Destination</h2>
-               <ol>
-      <li>Name: ${randomValue.name}</li>
-      <li>Diameter: ${randomValue.diameter}</li>
-      <li>Star: ${randomValue.star}</li>
-      <li>Distance from Earth: ${randomValue.distance}</li>
-      <li>Number of Moons: ${randomValue.moons}</li>
-            </ol>
-      <img src="${randomValue.image}"> 
-   `;
+                     <h2>Mission Destination</h2>
+                     <ol>
+            <li>Name: ${randomValue.name}</li>
+            <li>Diameter: ${randomValue.diameter}</li>
+            <li>Star: ${randomValue.star}</li>
+            <li>Distance from Earth: ${randomValue.distance}</li>
+            <li>Number of Moons: ${randomValue.moons}</li>
+                  </ol>
+            <img src="${randomValue.image}"> 
+         `;
    });
 });
