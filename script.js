@@ -51,7 +51,9 @@ window.addEventListener("load", function () {
             launchStatus.innerHTML = `The shuttle not ready for launch.`;
             launchStatus.style.color = "red";
             ready = false;
-         } 
+         } else {
+            fuelStatus.innerHTML = `Fuel level high enough for launch.`;
+         }
 
          if (cargoMass.value > 10000) {    // UPDATING CARGO STATUS
             items.style.visibility = "visible";
@@ -61,7 +63,9 @@ window.addEventListener("load", function () {
             launchStatus.innerHTML = `The shuttle not ready for launch.`;
             launchStatus.style.color = "red";
             ready = false;
-         } 
+         } else {
+            cargoStatus.innerHTML = `Cargo mass low enough for launch.`;
+         }
 
          if (ready) {
             // IF THE SHUTTLE IS GOOD TO GO 
